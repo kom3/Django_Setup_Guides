@@ -1,0 +1,160 @@
+sudo apt-get install python3
+sudo apt-get install pip3
+sudo pip3 install django
+
+<<<======================>>>
+
+django-admin startproject crudeapp
+cd crudeapp
+python3 manage.py startapp employee
+
+
+after this open project folder in vscode or any text-editor;
+
+*create database djangodb in MySQL(PhpMyadmin) and configure into settings.py
+
+	example:
+		
+		DATABASES = {  
+		    'default': {  
+		         'ENGINE':'django.db.backends.mysql',  
+	      		 'NAME': 'djangodb',  
+	       		 'USER':'root',  
+	       		 'PASSWORD':'root',  
+	        	 'HOST':'localhost',  
+	        	 'PORT':'3306'  
+	    	}  
+	      }
+
+
+*create a model
+
+ Put the following code into models.py file
+
+        from django.db import models  
+        class Employee(models.Model):  
+       	  eid = models.CharField(max_length=20)  
+          ename = models.CharField(max_length=100)  
+          eemail = models.EmailField()  
+          econtact = models.CharField(max_length=15)  
+        class Meta:  
+          db_table = "employee"  
+
+
+*create a model form :form.py  (careful about indentation)
+
+	from django import forms  
+    	from employee.models import Employee  
+    	class EmployeeForm(forms.ModelForm):  
+          class Meta:  
+            model = Employee  
+            fields = "__all__"  
+
+
+
+*create View Functions:
+
+    from django.shortcuts import render, redirect  
+    #import these things
+    from employee.forms import EmployeeForm  
+    from employee.models import Employee  
+    # Create your views here.  
+    def emp(request):  
+        if request.method == "POST":  
+            form = EmployeeForm(request.POST)  
+            if form.is_valid():  
+                try:  
+                    form.save()  
+                    return redirect('/show')  
+                except:  
+                    pass  
+        else:  
+            form = EmployeeForm()  
+        return render(request,'index.html',{'form':form})  
+    def show(request):  
+        employees = Employee.objects.all()  
+        return render(request,"show.html",{'employees':employees})  
+    def edit(request, id):  
+        employee = Employee.objects.get(id=id)  
+        return render(request,'edit.html', {'employee':employee})  
+    def update(request, id):  
+        employee = Employee.objects.get(id=id)  
+        form = EmployeeForm(request.POST, instance = employee)  
+        if form.is_valid():  
+            form.save()  
+            return redirect("/show")  
+        return render(request, 'edit.html', {'employee': employee})  
+    def destroy(request, id):  
+        employee = Employee.objects.get(id=id)  
+        employee.delete()  
+        return redirect("/show")  
+
+
+
+*Provide Routing:
+
+ provide URL patterns to map with views function
+
+ urls.py
+
+	    from django.contrib import admin  
+            from django.urls import path  
+            from employee import views  
+            urlpatterns = [  
+             path('admin/', admin.site.urls),  
+             path('emp', views.emp),  
+             path('show',views.show),  
+             path('edit/<int:id>', views.edit),  
+             path('update/<int:id>', views.update),  
+             path('delete/<int:id>', views.destroy),  
+            ]  
+
+
+* Organise Templates:
+ create a "templates" folder inside employee app and create html files
+
+	index.html
+	show.html
+	edit.html
+
+* create a folder called "static/css" inside employee app and save style.css file
+
+* craete migrations
+
+  create migrations for the created model employee using the commnad:
+  python3 manage.py makemigrations
+
+* add app(employee) in INSTALLED_APPS of settings.py
+
+*then run command to migrate the migrations
+	python3 manage.py migrate
+
+
+**********************************
+
+Now, our application has successfully connected and created tables in database. It creates 10 default tables for handling project (session, authentication etc) and one table of our model that we created.
+
+
+See list of tables created after migrate command in PhpMyadmin.
+
+* Finally to run server use:
+	python3 manage.py runserver
+ 
+
+
+
+
+***********debuging************
+
+
+django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module.
+Did you install mysqlclient?
+
+
+sudo apt-get install libmysqlclient-dev
+pip3 install mysqlclient
+
+
+
+
+
