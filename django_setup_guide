@@ -9,7 +9,7 @@ source nameofvirtualenvironment/bin/activate (Activating virtual environment)
 
 *After activating virtual environment install the following things (virtual environment helps to isolate the packages we install for the current project)
 sudo pip3 install django
-sudo apt-et install djangorestframework
+sudo apt-get install djangorestframework
 
 <<<======================>>>
 
