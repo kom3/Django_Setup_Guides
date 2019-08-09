@@ -1,6 +1,15 @@
 sudo apt-get install python3
 sudo apt-get install pip3
+
+sudo apt-get install python3-venv
+
+*Creating virtual environment for the project:
+python3 -m venv nameofvirtualenvironment
+source nameofvirtualenvironment/bin/activate (Activating virtual environment)
+
+*After activating virtual environment install the following things (virtual environment helps to isolate the packages we install for the current project)
 sudo pip3 install django
+sudo apt-et install djangorestframework
 
 <<<======================>>>
 
