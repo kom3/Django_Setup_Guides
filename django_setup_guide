@@ -126,16 +126,16 @@ after this open project folder in vscode or any text-editor;
 	show.html
 	edit.html
 
-* create a folder called "static/css" inside employee app and save style.css file
+* Create a folder called "static/css" inside employee app and save style.css file
 
-* craete migrations
+* Make migrations
 
-  create migrations for the created model employee using the commnad:
+  Make migrations for the created model employee using the commnad:
   python3 manage.py makemigrations
 
-* add app(employee) in INSTALLED_APPS of settings.py
+* Add app(employee) in INSTALLED_APPS of settings.py
 
-*then run command to migrate the migrations
+* Then run command to migrate the migrations
 	python3 manage.py migrate
 
 
