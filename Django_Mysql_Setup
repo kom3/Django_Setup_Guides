@@ -18,9 +18,9 @@ cd crudeapp
 python3 manage.py startapp employee
 
 
-after this open project folder in vscode or any text-editor;
+After this open project folder in vscode or any text-editor;
 
-*create database djangodb in MySQL(PhpMyadmin) and configure into settings.py
+*Create database djangodb in MySQL(PhpMyadmin) and configure into settings.py
 
 	example:
 		
@@ -36,9 +36,9 @@ after this open project folder in vscode or any text-editor;
 	      }
 
 
-*create a model
+*Create a model
 
- Put the following code into models.py file
+ Paste the following code into models.py file
 
         from django.db import models  
         class Employee(models.Model):  
@@ -50,7 +50,7 @@ after this open project folder in vscode or any text-editor;
           db_table = "employee"  
 
 
-*create a model form :form.py  (careful about indentation)
+*Create a model form :form.py (indentation might have affected)
 
 	from django import forms  
     	from employee.models import Employee  
@@ -61,7 +61,7 @@ after this open project folder in vscode or any text-editor;
 
 
 
-*create View Functions:
+*Create View Functions:
 
     from django.shortcuts import render, redirect  
     #import these things
@@ -141,7 +141,7 @@ after this open project folder in vscode or any text-editor;
 
 **********************************
 
-Now, our application has successfully connected and created tables in database. It creates 10 default tables for handling project (session, authentication etc) and one table of our model that we created.
+Now, our application has been successfully connected and tables are created in database. It creates 10 default tables for handling project (session, authentication, etc...) and also a table belongs to the model.
 
 
 See list of tables created after migrate command in PhpMyadmin.
